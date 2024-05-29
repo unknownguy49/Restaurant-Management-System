@@ -1,0 +1,4 @@
+1) Open any IDE of your choice.
+2) For Booking a table, run TableBooking.java
+3) For Ordering food, run FoodOrderSystem.java
+4) For feedback, run FeedbackSystem.java
