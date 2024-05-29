@@ -1,0 +1,145 @@
+Queries to create tables for JAVA project:
+------------------------------------------
+
+A) Queries to create tables for Table Booking:
+
+to create the table `table`:
+ CREATE TABLE `table` (TableID INT PRIMARY KEY, Name VARCHAR(50), Price INT);
+
+to insert values in `table`:
+ INSERT INTO `table` (TableID, Name, Price) VALUES (1, 'Regular', 100), (2, 'Special', 200), (3, 'Deluxe', 300);
+
+to create bookedtables:
+ CREATE TABLE bookedtables (booking_id INT NOT NULL AUTO_INCREMENT, TableID INT, customer_name VARCHAR(100), booking_date DATE, num_tables_booked INT, total_amount DECIMAL(10,2), PRIMARY KEY (booking_id));
+
+to create cancelledtables:
+ CREATE TABLE cancelledtables (cancel_id INT NOT NULL AUTO_INCREMENT, booking_id INT, cancel_date DATE, num_tables_cancelled INT, refund_amount DECIMAL(10,2), customer_name VARCHAR(100), PRIMARY KEY (cancel_id));
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+B) Queries to create tables for Food Ordering:
+
+CREATE TABLE Starters (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    type ENUM('Veg', 'Non-Veg') NOT NULL
+);
+
+CREATE TABLE MainCourse (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    type ENUM('Veg', 'Non-Veg', 'Chinese') NOT NULL
+);
+
+CREATE TABLE Desserts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+INSERT INTO Starters (name, price, type) VALUES
+('Paneer Tikka', 110, 'Veg'),
+('Veg Seekh Kebab', 110, 'Veg'),
+('Hara Bhara Kebab', 110, 'Veg'),
+('Shanghai Spring Roll', 150, 'Veg'),
+('American Corn Ball', 150, 'Veg'),
+('Crispy American Corn', 140, 'Veg'),
+('Crispy Baby Corn', 140, 'Veg'),
+('Crispy Mushroom', 120, 'Veg'),
+('Crispy Chilly Potato', 120, 'Veg'),
+('Crispy Chilly Chana', 150, 'Veg'),
+('Chicken Tikka', 170, 'Non-Veg'),
+('Murg Reshmi Kebab', 170, 'Non-Veg'),
+('Murg Chilli Kebab', 160, 'Non-Veg'),
+('Chicken Seekh Kebab', 180, 'Non-Veg'),
+('Tangdi Kebab', 180, 'Non-Veg'),
+('Murg Tandoori', 190, 'Non-Veg'),
+('Fish Ajwani Tikka', 190, 'Non-Veg'),
+('Chilli Chicken', 160, 'Non-Veg'),
+('Drums Of Heaven', 180, 'Non-Veg'),
+('Shanghai Chicken', 180, 'Non-Veg');
+
+INSERT INTO MainCourse (name, price, type) VALUES
+('Shahi Paneer', 180, 'Veg'),
+('Navaratan Korma', 180, 'Veg'),
+('Kadahi Paneer', 150, 'Veg'),
+('Malai Kofta', 140, 'Veg'),
+('Kadahi Vegetable', 140, 'Veg'),
+('Vegetable Pakeeza', 140, 'Veg'),
+('Shabnam Curry', 150, 'Veg'),
+('Makai Corn Palak', 150, 'Veg'),
+('Veg Pulao', 110, 'Veg'),
+('Kashmiri Pulao', 140, 'Veg'),
+('Butter Naan', 40, 'Veg'),
+('Stuffed Kulcha', 60, 'Veg'),
+('Chicken Tikka Masala', 180, 'Non-Veg'),
+('Chicken Tikka Labadar', 180, 'Non-Veg'),
+('Chicken Bharta', 150, 'Non-Veg'),
+('Kadahi Chicken', 160, 'Non-Veg'),
+('Mughlai Chicken', 160, 'Non-Veg'),
+('Murg Navratan Korma', 160, 'Non-Veg'),
+('Chicken Do Pyaza', 170, 'Non-Veg'),
+('Murg Masallam', 170, 'Non-Veg'),
+('Mutton Rogan Josh', 190, 'Non-Veg'),
+('Prawn Malai Curry', 190, 'Non-Veg'),
+('Fish Sarsowala', 140, 'Non-Veg'),
+('Fish Dhaniawala', 160, 'Non-Veg'),
+('Schezwan Fried Rice', 240, 'Chinese'),
+('Schezwan Chicken', 280, 'Chinese'),
+('Chilly Chicken', 280, 'Chinese'),
+('Chicken Noodle', 210, 'Chinese'),
+('Veg Hakka Noodle', 210, 'Chinese'),
+('Chicken Manchurian', 190, 'Chinese'),
+('Paneer Manchurian', 190, 'Chinese'),
+('Chilly Paneer', 190, 'Chinese'),
+('Shanghai Fried Rice', 240, 'Chinese'),
+('Veg Fried Rice', 210, 'Chinese'),
+('Chicken Fried Rice', 210, 'Chinese'),
+('Kimchi Rice Veg', 210, 'Chinese');
+
+INSERT INTO Desserts (name, price) VALUES
+('Softy Pineapple', 110),
+('Softy Crunchy Chocolate', 110),
+('Chocolate Walnut Brownie', 90),
+('Chocolate Doughnut', 90),
+('Marble Cake', 70),
+('Mocha Magic', 90),
+('Black Forest Gateaux', 90),
+('Mango Shake', 80),
+('Pineapple Shake', 80),
+('Tooty Fruit', 120);
+
+CREATE TABLE Orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT,
+    total_amount DOUBLE,
+    order_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (booking_id) REFERENCES bookedtables(booking_id)
+);
+
+CREATE TABLE OrderDetails (
+    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    food_item VARCHAR(255),
+    quantity INT,
+    price DOUBLE,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id)
+);
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+C) Queries to create tables for Feedback System:
+
+CREATE TABLE Feedback (
+    feedback_id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT,
+    customer_name VARCHAR(100),
+    rating INT,
+    comments TEXT,
+    feedback_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (booking_id) REFERENCES bookedtables(booking_id)
+);
