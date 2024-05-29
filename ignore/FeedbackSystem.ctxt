@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=FeedbackSystem
+comment1.params=
+comment1.target=java.sql.Connection\ getConnection()
+comment2.params=bookingId\ customerName\ rating\ comments
+comment2.target=void\ insertFeedback(int,\ java.lang.String,\ int,\ java.lang.String)
+comment3.params=bookingId
+comment3.target=void\ getFeedbackByBookingId(int)
+comment4.params=args
+comment4.target=void\ main(java.lang.String[])
+numComments=5
